@@ -7,7 +7,7 @@ Does **not** handle installing R.
 
 Currently, only supporting regular Mac binary CRAN `.pkg` installs. Simple and effective. 
 
-When implemented, Mac & Windows will be supported on a separate branches.
+When implemented, Mac & Windows will be supported on separate branches.
 
 # Download / Install
 
