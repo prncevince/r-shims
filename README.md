@@ -31,7 +31,7 @@ Create a `.Rversion` file containing the minor version of R (`x.y`) in the root 
 
 `rstudio`
 
-To just run the specified version of R, use `R` or `RScript` in the usual way.
+To just run the specified version of R, use `R` or `Rscript` in the usual way.
 
 # Why shims?
 
