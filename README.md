@@ -35,7 +35,9 @@ Create a `.Rversion` file containing the minor version of R (`x.y`) in the root 
 
 - e.g. `echo 4.0 > .Rversion`
 
-`cd` to the repo's root directory. To open RStudio with the specified version of R, and inside a *.Rproj if also in the repo simply run:
+`cd` to the repo's root directory. 
+
+To open RStudio with the specified version of R, and inside a `*.Rproj` if also in the repo, simply run:
 
 `rstudio`
 
