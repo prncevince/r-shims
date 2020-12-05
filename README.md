@@ -5,11 +5,15 @@ Inspired by a need to synchonize minor versions of R (`x.y`, e.g. `4.0` in `4.0.
 
 Does **not** handle installing R. 
 
+Currently, only supporting regular Mac binary CRAN `.pkg` installs. Simple and effective. 
+
+When implemented, Mac & Windows will be supported on a separate branches.
+
 # Download / Install
 
 ## Mac
 
-`git clone https://github.com/prncevince/r-shims $HOME/.R/shims`
+`git clone --single-branch --branch mac https://github.com/prncevince/r-shims $HOME/.R/shims`
 
 Add to your Bash/Zsh dot profile:
 
@@ -31,5 +35,7 @@ To just run the specified version of R, use `R` or `RScript` in the usual way.
 
 # Why shims?
 
-Programs that utilize R (e.g. GNU Make), access the current shells `PATH` environment variable, but not aliases/functions. Thus, shims are necessary for programs like GNU make to use the updated `R`/`Rscript` and homemade `rstudio` utilities.
+Programs that utilize R (e.g. [GNU Make](https://www.gnu.org/software/make/)), access the current shells `PATH` environment variable, but not aliases/functions. Thus, shims are necessary for programs like GNU Make to use the updated `R`/`Rscript` utilities.
+
+In addition, they don't plague your dot-profile with functions/aliases. There are many other reasons as well. 
 
