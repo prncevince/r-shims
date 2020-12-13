@@ -1,6 +1,6 @@
 # R Shims
 
-Inspired by a need to synchonize minor versions of R (`x.y`, e.g. `4.0` in `4.0.3`) across projects. Conversation stemmed from below issue:
+Inspired by a need to synchronize minor versions of R (`x.y`, e.g. `4.0` in `4.0.3`) across projects. Conversation stemmed from below issue:
 - https://github.com/rstudio/renv/issues/254
 
 Does **not** handle installing R. 
@@ -19,6 +19,16 @@ Add to your Bash/Zsh dot profile:
 
 ```bash
 export PATH="$HOME/.R/shims:$PATH"
+```
+
+For each version of R that you have installed, edit the `/Library/Frameworks/R.framework/Versions/x.y/Resources/bin/R` shell file. Comment out lines 29 to 34 like so:
+
+```sh
+#if test -n "${R_HOME}" && \
+#  test "${R_HOME}" != "${R_HOME_DIR}"; then
+#  echo "WARNING: ignoring environment value of R_HOME"
+#fi
+#R_HOME="${R_HOME_DIR}"
 ```
 
 # Usage
