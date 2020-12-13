@@ -29,7 +29,7 @@ Add to your Bash/Zsh dot profile:
 export PATH="$HOME/.R/shims:$PATH"
 ```
 
-For each version of R that you have installed, edit the `/Library/Frameworks/R.framework/Versions/x.y/Resources/bin/R` shell file. Comment out lines 29 to 34 like so:
+For each version of R that you have installed, edit the `/Library/Frameworks/R.framework/Versions/x.y/Resources/bin/R` shell file. Comment out lines 29 to 33 like so:
 
 ```sh
 #if test -n "${R_HOME}" && \
