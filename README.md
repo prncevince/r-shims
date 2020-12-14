@@ -29,14 +29,15 @@ Add to your Bash/Zsh dot profile:
 export PATH="$HOME/.R/shims:$PATH"
 ```
 
-For each version of R that you have installed, edit the `/Library/Frameworks/R.framework/Versions/x.y/Resources/bin/R` shell file. Comment out lines 29 to 33 like so:
+For each version of R that you have installed, edit the `/Library/Frameworks/R.framework/Versions/x.y/Resources/bin/R` shell file. Comment out lines 31 and add a line below it setting `R_HOME_DIR` to the value of `R_HOME`. It should look like so:
 
 ```sh
-#if test -n "${R_HOME}" && \
-#  test "${R_HOME}" != "${R_HOME_DIR}"; then
-#  echo "WARNING: ignoring environment value of R_HOME"
-#fi
-#R_HOME="${R_HOME_DIR}"
+if test -n "${R_HOME}" && \
+  test "${R_HOME}" != "${R_HOME_DIR}"; then
+  #echo "WARNING: ignoring environment value of R_HOME"
+  R_HOME_DIR="${R_HOME}"
+fi
+R_HOME="${R_HOME_DIR}"
 ```
 
 # Usage

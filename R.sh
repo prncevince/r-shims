@@ -1,7 +1,13 @@
-rpath=/Library/Frameworks/R.framework/Versions
+#! /usr/bin/env sh
 if [ -f .Rversion ]; then
-  ver=$(cat .Rversion)
-  if [[ $(/bin/ls "$rpath" | grep "$ver") == "" ]]; then
-    echo "R version" "$ver" "not installed" && return 1; else
-    export R_HOME="$rpath"/"$ver"/Resources; fi; fi
-"$R_HOME"/R "$@"
+  rpath=/Library/Frameworks/R.framework/Versions
+  ver=$(/bin/cat .Rversion)
+  if [[ $(/bin/ls "$rpath" | /usr/bin/grep "$ver") == "" ]]; then
+    echo "R version" "$ver" "not installed" && return 1
+  else
+    export R_HOME="$rpath"/"$ver"/Resources
+  fi
+  exec "$R_HOME"/R "$@"
+else
+  exec /usr/local/bin/R "$@"
+fi
