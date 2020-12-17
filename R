@@ -1,1 +1,15 @@
-R.sh
+#! /usr/bin/env sh
+if [ -f .Rversion ]; then
+  rpath=$(echo "$LOCALAPPDATA" | sed 's/\\/\//g')/R
+  ver=$(/bin/cat .Rversion)
+  vers=$(/bin/ls "$rpath" | /usr/bin/grep R-"$ver")
+  if [[ "$vers" == "" ]]; then
+    echo "R version" "$ver" "not installed" && exit
+  else
+    ver_path=$(echo $vers | /usr/bin/awk '{print $NF}')
+    export R_HOME="$rpath"/"$ver_path"/bin/x64
+  fi
+  "$R_HOME"/R "$@"
+else
+  exec R "$@"
+fi
