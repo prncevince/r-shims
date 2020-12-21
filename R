@@ -1,4 +1,5 @@
 #! /usr/bin/env sh
+
 if [ -f .Rversion ]; then
   rpath=$(echo "$LOCALAPPDATA" | sed 's/\\/\//g')/R
   ver=$(/bin/cat .Rversion)

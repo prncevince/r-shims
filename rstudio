@@ -1,14 +1,39 @@
 #! /usr/bin/env bash
 
-rpath=/Library/Frameworks/R.framework/Versions
-old=$(/usr/bin/readlink "$rpath"/Current); 
-if [ -f .Rversion ]; then 
-  new=$(/bin/cat .Rversion)
-  if [[ $(/bin/ls "$rpath" | /usr/bin/grep "$new") == "" ]]; then 
-    echo "R version" "$new" "not installed" && exit; else
-    /bin/ln -sfh "$new" "$rpath"/Current; fi; fi
-if [ -n "$ZSH_VERSION" ]; then unsetopt local_options nomatch; fi
-if [ -f *.Rproj ]; then 
-  /usr/bin/open -na Rstudio *.Rproj; else 
-  ("/Applications/RStudio.app/Contents/MacOS/RStudio" &)
-fi; ({ sleep 5; /bin/ln -sfh "$old" "$rpath"/Current;} &)
+#rpath=/Library/Frameworks/R.framework/Versions
+#old=$(/usr/bin/readlink "$rpath"/Current); 
+#if [ -f .Rversion ]; then 
+#  new=$(/bin/cat .Rversion)
+#  if [[ $(/bin/ls "$rpath" | /usr/bin/grep "$new") == "" ]]; then 
+#    echo "R version" "$new" "not installed" && exit; else
+#    /bin/ln -sfh "$new" "$rpath"/Current; fi; fi
+#if [ -n "$ZSH_VERSION" ]; then unsetopt local_options nomatch; fi
+#if [ -f *.Rproj ]; then 
+#  /usr/bin/open -na Rstudio *.Rproj; else 
+#  ("/Applications/RStudio.app/Contents/MacOS/RStudio" &)
+#fi; ({ sleep 5; /bin/ln -sfh "$old" "$rpath"/Current;} &)
+
+LOCALAPPDATA_NIX=$(echo "$LOCALAPPDATA" | sed 's/\\/\//g')
+rstudio="$LOCALAPPDATA_NIX"/RStudio/bin/rstudio
+if [ -f .Rversion ]; then
+  APPDATA_NIX=$(echo "$APPDATA" | sed 's/\\/\//g')
+  R_PATH="$LOCALAPPDATA_NIX"/R
+  VER=$(/bin/cat .Rversion)
+  VERS=$(/bin/ls "$R_PATH" | /usr/bin/grep R-"$VER")
+  if [[ "$VERS" == "" ]]; then
+    echo "R version" "$VER" "not installed" && exit
+  else
+    desktopini="$APPDATA_NIX"/RStudio/desktop.ini
+    VER_PATH=$(echo $VERS | /usr/bin/awk '{print $NF}')
+    R_HOME="$R_PATH"/"$VER_PATH"/bin/x64
+    OLD=$(/usr/bin/cat "$desktopini" | grep '^RBinDir.*$')
+    OLD_RGX=$(echo "$OLD" | sed 's/\//\\\\/g')
+    R_HOME_RGX=$(echo "$R_HOME" | sed 's/\//\\\\/g')
+    /usr/bin/sed -i "s/^RBinDir.*$/RBinDir=$R_HOME_RGX/" "$desktopini"
+    /usr/bin/unix2dos -q "$desktopini"
+  fi
+fi
+("$rstudio" &)
+sleep 1
+(/usr/bin/sed -i "s/^RBindDir.*$/$OLD_RGX/" "$desktopini")
+/usr/bin/unix2dos -q "$desktopini"
