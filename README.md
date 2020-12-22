@@ -40,6 +40,10 @@ fi
 R_HOME="${R_HOME_DIR}"
 ```
 
+## Windows
+
+
+
 # Usage
 
 Create a `.Rversion` file containing the minor version of R (`x.y`) in the root of your repo. 
