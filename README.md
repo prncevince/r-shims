@@ -11,9 +11,23 @@ Some other projects that handle this:
 - [renv / renv-installer](https://github.com/jcrodriguez1989/renv-installer) utility (not R package), which stems from [pyenv](https://github.com/pyenv/pyenv)
 - [RSwitch](https://rud.is/rswitch/) for macOS - GUI and CLI utility
 
-Currently, only supporting regular Mac binary CRAN `.pkg` installs. Simple and effective. Not as complex as aforementioned projects.
+# Supported Platforms / Setups
 
-When implemented, Mac & Windows will be supported on separate branches.
+## Mac
+
+Regular Mac binary CRAN `.pkg` installs. Simple and effective. Not as complex as aforementioned projects.
+
+## Windows 
+
+Windows Unix Terminal emulators setups with R & RStudio installs to the `%localappdata%` directory. This achieves a nice per user setup. 
+
+R installations have the below convention, with `x.y.z` being your major.minor.patch version of R. This allows for multiple installations of R to exist within your `%userprofile%` on the system.
+
+- `%localappdata%/R/R-x.y.z`
+
+RStudio installations have the below convention:
+
+- `%localappdata%/RStudio`
 
 # Download / Install
 
@@ -42,6 +56,24 @@ R_HOME="${R_HOME_DIR}"
 
 ## Windows
 
+As advertised, this is developed for Unix terminal emulators, e.g. [Git for Windows](https://gitforwindows.org/).
+
+
+`git clone --single-branch --branch windows https://github.com/prncevince/r-shims $HOME/.R/shims`
+
+Use `git pull` in your `$HOME/.R/shims` directory to update as needed.
+
+Add to your Bash/Zsh dot profile:
+
+```bash
+export PATH="$HOME/.R/shims:$PATH"
+```
+
+Make sure that [Rtools](https://cran.r-project.org/bin/windows/Rtools/) is on top of the `PATH` that is accessed by R. You can do this by adding to your `%localappdata%/R/R-x.y.z/etc/Renviron.site`:
+
+```sh
+PATH="${LOCALAPPDATA}\Rtools\rtools40\usr\bin;${PATH}"
+```
 
 
 # Usage
