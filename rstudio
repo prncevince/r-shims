@@ -14,13 +14,11 @@ if [ -f .Rversion ]; then
     VER_PATH=$(echo $VERS | /usr/bin/awk '{print $NF}')
     R_HOME="$R_PATH"/"$VER_PATH"/bin/x64
     OLD=$(/usr/bin/cat "$desktopini" | grep '^RBinDir.*$')
-    OLD_RGX=$(echo "$OLD" | sed 's/\//\\\\/g')
-    R_HOME_RGX=$(echo "$R_HOME" | sed 's/\//\\\\/g')
-    /usr/bin/sed -i "s/^RBinDir.*$/RBinDir=$R_HOME_RGX/" "$desktopini"
-    /usr/bin/unix2dos -q "$desktopini"
+    powershell -Command "(get-content -Path $desktopini) -replace '$OLD', 'RBinDir=$R_HOME' | Set-Content -Path $desktopini"
   fi
 fi
 ("$rstudio" &)
-sleep 1
-(/usr/bin/sed -i "s/^RBindDir.*$/$OLD_RGX/" "$desktopini")
-/usr/bin/unix2dos -q "$desktopini"
+if [ ! -z "$OLD" ]; then
+  sleep 1
+  powershell -Command "(get-content -Path $desktopini) -replace 'RBinDir=$R_HOME', '$OLD' | Set-Content -Path $desktopini"
+fi
