@@ -1,2 +1,5 @@
 .Rversion
 .Rhistory
+R-*
+.Rproj.user
+*.html
