@@ -7,6 +7,8 @@
   - [Mac](#mac-1)
   - [Windows](#windows-1)
 - [Usage](#usage)
+- [Problems](#problems)
+  - [Mac](#mac-2)
 - [Why Shims?](#why-shims)
 
 Inspired by a need to synchronize minor versions of R (`x.y`, e.g. `4.0` in `4.0.3`) across projects. Puts shims for `R`, `Rscript`, and `rstudio` utilities on the `PATH` after manual edition to dot-profile.
@@ -102,6 +104,14 @@ To open RStudio with the specified version of R, and inside a `*.Rproj` if also 
 `rstudio`
 
 To just run the specified version of R, use `R` or `Rscript` in the usual way.
+
+# Problems
+
+Here, we layout know system problems that are unavoidable, unless changes to the source code of RStudio or R are made.
+
+## Mac
+
+Restarting the R session in RStudio will always startup the system version of R, i.e. the symbolic link `/Library/Frameworks/R.framework/Versions/Current`. 
 
 # Why Shims?
 
