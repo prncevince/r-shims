@@ -17,7 +17,11 @@ if [ -f .Rversion ]; then
     powershell -Command "(get-content -Path $desktopini) -replace '$OLD', 'RBinDir=$R_HOME' | Set-Content -Path $desktopini"
   fi
 fi
-("$rstudio" &)
+if [ -f *.Rproj ]; then 
+  ("$rstudio" *.Rproj &)
+else 
+  ("$rstudio" &)
+fi
 if [ ! -z "$OLD" ]; then
   powershell -Command "(get-content -Path $desktopini) -replace 'RBinDir=$R_HOME', '$OLD' | Set-Content -Path $desktopini"
 fi
