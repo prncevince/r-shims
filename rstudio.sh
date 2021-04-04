@@ -7,6 +7,5 @@ if [ -f .Rversion ]; then
     /bin/ln -sfh "$new" "$rpath"/Current; fi; fi
 if [ -n "$ZSH_VERSION" ]; then unsetopt local_options nomatch; fi
 if [ -f *.Rproj ]; then 
-  /usr/bin/open -na Rstudio *.Rproj; else 
-  ("/Applications/RStudio.app/Contents/MacOS/RStudio" &)
+  (/usr/bin/open -na Rstudio . &) 
 fi; ({ sleep 5; /bin/ln -sfh "$old" "$rpath"/Current;} &)

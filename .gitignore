@@ -2,4 +2,5 @@
 .Rhistory
 R-*
 .Rproj.user
+*.Rproj
 *.html
