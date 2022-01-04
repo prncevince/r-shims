@@ -12,5 +12,5 @@ if [ -f .Rversion ]; then
   fi
   "$R_HOME"/Rscript "$@"
 else
-  exec Rscript "$@"
+  winpty Rscript "$@"
 fi
